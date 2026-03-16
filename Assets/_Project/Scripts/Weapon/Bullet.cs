@@ -10,6 +10,8 @@ public class Bullet : MonoBehaviour
 
     private Vector2 _direction;
     private Rigidbody2D _rb;
+    private float _lifeTimer;
+    private float _lifeTime = 2f;
 
     public void Set(Vector2 direction)
     {
@@ -21,9 +23,19 @@ public class Bullet : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
     }
 
+    private void OnEnable()
+    {
+        _lifeTimer = 0;
+    }
+
     private void Update()
     {
-        Destroy(gameObject, 2f);
+        _lifeTimer += Time.deltaTime;
+
+        if (_lifeTimer >= _lifeTime)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -35,15 +47,15 @@ public class Bullet : MonoBehaviour
     {
         LifeController enemy = collision.gameObject.GetComponent<LifeController>();
 
-        if (collision.gameObject.CompareTag("Enemy"))
+        if (enemy != null && collision.gameObject.CompareTag("Enemy"))
         {
             enemy.TakeDamage(_damage);
-            Destroy(gameObject);
+            gameObject.SetActive(false);  
         }
 
         if (collision.gameObject.CompareTag("Walls"))
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false); 
         }
     }
 }
