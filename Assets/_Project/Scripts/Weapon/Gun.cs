@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
     [SerializeField] private float _fireRate;
     [SerializeField] private float _fireRange;
-    [SerializeField] private Bullet _bulletPrefab;
+    [SerializeField] private int _bulletIndex;
     [SerializeField] private AudioClip _sfx;
+    [SerializeField] private BulletPool _bulletPool;
 
     private float _lastTimeShot;
     private bool _isEquipped;
@@ -28,15 +27,8 @@ public class Gun : MonoBehaviour
     {
         if (Time.time - _lastTimeShot > _fireRate && _isEquipped)
         {
-            GameObject enemy = FindNearestEnemy();
             _lastTimeShot = Time.time;
-            Shoot();
-
-            if (enemy != null)
-            {
-                Vector2 direction = enemy.transform.position - transform.position;
-                _animParam.SetHorizontalSpeedParam(direction.x);
-            }
+            Shoot(FindNearestEnemy());
         }
     }
 
@@ -47,43 +39,42 @@ public class Gun : MonoBehaviour
 
         float distance;
         float minDistance = _fireRange;
-        GameObject NearestEnemy = null; // faccio un controllo per essere sicuro che il calcolo parta da 0
+        GameObject nearestEnemy = null; // faccio un controllo per essere sicuro che il calcolo parta da 0
 
         foreach (GameObject enemy in enemys)
         {
             distance = Vector2.Distance(player, enemy.transform.position);
             if (distance < minDistance)
             {
-                NearestEnemy = enemy;
+                nearestEnemy = enemy;
                 minDistance = distance;
             }
         }
-        return NearestEnemy;
+        return nearestEnemy;
     }
 
-    public void Shoot()
+    public void Shoot(GameObject target)
     {
-        GameObject ClosestEnemy = FindNearestEnemy();
-        if (ClosestEnemy != null)
+        if (target == null) return;
+
+        Vector2 direction = target.transform.position - transform.position;
+        direction.Normalize();
+
+        GameObject bullet = _bulletPool.GetBullet(_bulletIndex);
+        bullet.transform.position = transform.position;
+        bullet.GetComponent<Bullet>().Set(direction);
+
+        if (_audioSource != null)
         {
-            Vector2 direction = ClosestEnemy.transform.position - transform.position; // calcolo la direzione dei colpi
-            direction.Normalize();
-
-            Bullet bullet = Instantiate(_bulletPrefab);
-            bullet.transform.position = transform.position;
-            bullet.Set(direction); //dò il valore della direzione alla funzione
-
-            if (_audioSource != null)
-            {
-                _audioSource.clip = _sfx;
-                _audioSource.Play();
-            }
+            _audioSource.clip = _sfx;
+            _audioSource.Play();
         }
+
+        _animParam.SetHorizontalSpeedParam(direction.x);
     }
 
     public void Equip()
     {
         _isEquipped = true;
     }
-
 }

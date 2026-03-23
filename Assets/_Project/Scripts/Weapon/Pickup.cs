@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Pickup : MonoBehaviour
 {
     [SerializeField] private Gun _gunPrefab;
-    [SerializeField] private Spawn _zombieSpawn;
+    [SerializeField] private Spawn __spawnManager;
     [SerializeField] private AudioClip _sfx;
 
     private AudioSource _audioSource;
@@ -24,7 +22,7 @@ public class Pickup : MonoBehaviour
                 _audioSource.Play();
             }
 
-            _zombieSpawn.StartWave();
+            __spawnManager.StartWave();
 
             Gun gun = Instantiate(_gunPrefab);
             gun.transform.position = collision.transform.position;

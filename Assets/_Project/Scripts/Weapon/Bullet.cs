@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
 
 public class Bullet : MonoBehaviour
 {
@@ -50,12 +47,12 @@ public class Bullet : MonoBehaviour
         if (enemy != null && collision.gameObject.CompareTag("Enemy"))
         {
             enemy.TakeDamage(_damage);
-            gameObject.SetActive(false);  
+            gameObject.SetActive(false);
         }
 
         if (collision.gameObject.CompareTag("Walls"))
         {
-            gameObject.SetActive(false); 
+            gameObject.SetActive(false);
         }
     }
 }

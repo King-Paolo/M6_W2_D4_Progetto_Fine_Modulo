@@ -49,10 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8eca87e456c34f4fbb07069cbbad99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0
-  _fireRange: 0
-  _bulletPrefab: {fileID: 7946637408988610135, guid: 8381f07ce2eb95445b0a5d93841e9597, type: 3}
+  _fireRate: 5
+  _fireRange: 5
+  _bulletIndex: 0
   _sfx: {fileID: 8300000, guid: 21865ddb3988a08d9bd3c304b86733de, type: 3}
+  _bulletPool: {fileID: 0}
 --- !u!61 &2534425774245806141
 BoxCollider2D:
   m_ObjectHideFlags: 0

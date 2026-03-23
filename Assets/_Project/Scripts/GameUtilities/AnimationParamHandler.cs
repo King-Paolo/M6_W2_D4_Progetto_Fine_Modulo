@@ -10,6 +10,7 @@ public class AnimationParamHandler : MonoBehaviour
     [SerializeField] string _healthParamName = "isDead";
     void Awake()
     {
+        if (_anim == null)
         _anim = GetComponentInChildren<Animator>();
     }
     public void SetHorizontalSpeedParam(float speed)

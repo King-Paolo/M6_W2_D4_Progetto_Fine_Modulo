@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 public class LifeController : MonoBehaviour
@@ -12,10 +10,13 @@ public class LifeController : MonoBehaviour
     private bool _isDead;
 
     public float Hp { get { return _hp; } }
+    public bool IsDead => _isDead;
 
     private void Awake()
     {
         _hp = _maxHp;
+
+        if(_animParam != null)
         _animParam = GetComponent<AnimationParamHandler>();
     }
 
@@ -26,6 +27,7 @@ public class LifeController : MonoBehaviour
         if (!CompareTag("Player"))
         {
             _hp = _maxHp;
+            _animParam.SetHealthParam(false);
         }
     }
     private void SetHp(float hp)
@@ -51,7 +53,7 @@ public class LifeController : MonoBehaviour
     {
         yield return new WaitForSeconds(0.8f);
 
-        if(CompareTag("Player"))
+        if (CompareTag("Player"))
         {
             Destroy(gameObject);
         }
