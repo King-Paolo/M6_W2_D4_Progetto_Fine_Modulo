@@ -3,18 +3,20 @@ using UnityEngine;
 public class Pickup : MonoBehaviour
 {
     [SerializeField] private Gun _gunPrefab;
-    [SerializeField] private Spawn __spawnManager;
+    //[SerializeField] private SpawnManager _spawnManager;
     [SerializeField] private AudioClip _sfx;
 
     private AudioSource _audioSource;
+    private Gun _gun;
 
     private void Awake()
     {
         if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
+        _gun = GetComponent<Gun>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !_gun.IsEquipped)
         {
             if (_audioSource != null)
             {
@@ -22,12 +24,15 @@ public class Pickup : MonoBehaviour
                 _audioSource.Play();
             }
 
-            __spawnManager.StartWave();
+            SpawnManager.Instance.StartWave();
 
-            Gun gun = Instantiate(_gunPrefab);
-            gun.transform.position = collision.transform.position;
+            _gun = Instantiate(_gunPrefab/*, *//*collision.transform*/);
+            _gun.SetPlayer(collision.transform);
+            _gun.transform.position = collision.transform.position;
+            BulletPool pool = FindObjectOfType<BulletPool>();
+            _gun.SetBulletPool(pool);
 
-            gun.Equip();
+            _gun.Equip();
             Destroy(gameObject, _sfx.length);
         }
     }

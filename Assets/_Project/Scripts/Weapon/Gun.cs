@@ -12,6 +12,9 @@ public class Gun : MonoBehaviour
     private bool _isEquipped;
     private AnimationParamHandler _animParam;
     private AudioSource _audioSource;
+    private Transform _player;
+
+    public bool IsEquipped => _isEquipped;
 
     private void Awake()
     {
@@ -21,14 +24,24 @@ public class Gun : MonoBehaviour
         {
             _audioSource = GetComponent<AudioSource>();
         }
+
+        if (_bulletPool == null)
+        {
+            _bulletPool = FindObjectOfType<BulletPool>();
+        }
     }
 
     private void Update()
     {
-        if (Time.time - _lastTimeShot > _fireRate && _isEquipped)
+        if (_isEquipped && _player != null)
         {
-            _lastTimeShot = Time.time;
-            Shoot(FindNearestEnemy());
+            transform.position = _player.transform.position;
+
+            if (Time.time - _lastTimeShot > _fireRate)
+            {
+                _lastTimeShot = Time.time;
+                Shoot(FindNearestEnemy());
+            }
         }
     }
 
@@ -76,5 +89,15 @@ public class Gun : MonoBehaviour
     public void Equip()
     {
         _isEquipped = true;
+    }
+
+    public void SetBulletPool(BulletPool pool)
+    {
+        _bulletPool = pool;
+    }
+
+    public void SetPlayer(Transform player)
+    {
+        _player = player;
     }
 }

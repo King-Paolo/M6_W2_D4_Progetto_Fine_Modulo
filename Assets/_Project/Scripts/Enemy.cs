@@ -3,7 +3,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private float _speed;
-    [SerializeField] private float _damage;
+    [SerializeField] private int _damage;
 
     private AnimationParamHandler _animParam;
     private GameObject _player;
@@ -12,19 +12,20 @@ public class Enemy : MonoBehaviour
     private void Awake()
     {
         _animParam = GetComponent<AnimationParamHandler>();
-        _player = GameObject.Find("Player");
+        _player = GameObject.FindGameObjectWithTag("Player");
         _enemy = GetComponent<LifeController>();
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
+        //Debug.Log("TRIGGER con: " + collision.name);
+
         if (_enemy.IsDead) return;
 
-        LifeController player = collision.gameObject.GetComponent<LifeController>();
+        LifeController player = collision.GetComponent<LifeController>();
 
-        if (collision.gameObject.CompareTag("Player") && player != null)
+        if (collision.CompareTag("Player") && player != null)
         {
             player.TakeDamage(_damage);
-            Destroy(gameObject);      // lascio il nemico in vita(?)
         }
     }
 

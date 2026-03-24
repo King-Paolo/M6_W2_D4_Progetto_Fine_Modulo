@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AnimationParamHandler : MonoBehaviour
 {
-    private Animator _anim;
-    [SerializeField] string _horizontalSpeedParamName = "hSpeed";
-    [SerializeField] string _verticalSpeedParamName = "vSpeed";
+    [SerializeField] private Animator _anim;
+    [SerializeField] private string _horizontalSpeedParamName = "hSpeed";
+    [SerializeField] private string _verticalSpeedParamName = "vSpeed";
     [SerializeField] string _healthParamName = "isDead";
     void Awake()
     {
         if (_anim == null)
-        _anim = GetComponentInChildren<Animator>();
+            _anim = GetComponent<Animator>();
     }
     public void SetHorizontalSpeedParam(float speed)
     {
@@ -23,6 +21,12 @@ public class AnimationParamHandler : MonoBehaviour
     }
     public void SetHealthParam(bool isDead)
     {
+        if (_anim == null)
+        {
+            Debug.LogError("Animator null in SetHealthParam su " + gameObject.name);
+            return;
+        }
+
         _anim.SetBool(_healthParamName, isDead);
     }
 }

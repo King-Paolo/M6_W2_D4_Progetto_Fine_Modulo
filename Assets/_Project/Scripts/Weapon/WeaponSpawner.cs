@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponSpawner : MonoBehaviour
 {
-    [Header("Weapons Spawn Points")]
+    [Header("Weapons SpawnManager Points")]
     [SerializeField] private Transform _spawnPointAssaultRifle;
     [SerializeField] private Transform _spawnPointShotgun;
     [SerializeField] private Transform _bombTargetPoint;

@@ -93,7 +93,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3959929362879175381}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 69f30b7a5c920f94a921b4ab06d4592d, type: 2}
   m_CullingMode: 0
@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 6361712241516581249}
   - component: {fileID: 6255632412093672410}
   - component: {fileID: 6496174830079464337}
+  - component: {fileID: 76155315718812618}
   m_Layer: 6
   m_Name: Shotgun
   m_TagString: Untagged
@@ -155,10 +156,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8eca87e456c34f4fbb07069cbbad99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0
-  _fireRange: 0
-  _bulletPrefab: {fileID: 8685566354757792811, guid: 57bdad9f404b5264a8d329411d3a10ae, type: 3}
+  _fireRate: 1
+  _fireRange: 3
+  _bulletIndex: 1
   _sfx: {fileID: 8300000, guid: 95a68678a314333f1aad4b6cfc81b0f7, type: 3}
+  _bulletPool: {fileID: 0}
 --- !u!61 &8347840925470053436
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -217,7 +219,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gunPrefab: {fileID: 4853441652401732448}
-  _zombieSpawn: {fileID: 0}
   _sfx: {fileID: 8300000, guid: 3302e6740ab4f8aee9b7b6352c2aab8f, type: 3}
 --- !u!114 &6255632412093672410
 MonoBehaviour:
@@ -231,6 +232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7161faaf653d96440bfbb081784eef58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 76155315718812618}
   _horizontalSpeedParamName: hSpeed
   _verticalSpeedParamName: vSpeed
   _healthParamName: isDead
@@ -330,6 +332,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &76155315718812618
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5543973088673632709}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 69f30b7a5c920f94a921b4ab06d4592d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7648324440187703250
 GameObject:
   m_ObjectHideFlags: 0

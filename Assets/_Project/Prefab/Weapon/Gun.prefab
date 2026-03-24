@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 8467188494688666106}
   - component: {fileID: 7775544720423528466}
   - component: {fileID: 7407460075550670657}
+  - component: {fileID: 5465982547814938328}
   m_Layer: 6
   m_Name: Gun
   m_TagString: Gun
@@ -49,8 +50,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8eca87e456c34f4fbb07069cbbad99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 5
-  _fireRange: 5
+  _fireRate: 0.7
+  _fireRange: 7
   _bulletIndex: 0
   _sfx: {fileID: 8300000, guid: 21865ddb3988a08d9bd3c304b86733de, type: 3}
   _bulletPool: {fileID: 0}
@@ -112,7 +113,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gunPrefab: {fileID: 9154447225002131650}
-  _zombieSpawn: {fileID: 0}
   _sfx: {fileID: 8300000, guid: 3302e6740ab4f8aee9b7b6352c2aab8f, type: 3}
 --- !u!114 &7775544720423528466
 MonoBehaviour:
@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7161faaf653d96440bfbb081784eef58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 5616736278935916397}
   _horizontalSpeedParamName: hSpeed
   _verticalSpeedParamName: vSpeed
   _healthParamName: isDead
@@ -225,6 +226,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &5465982547814938328
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1824476217425233767}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c53c86a8231305f4b84c6cffca88e341, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3687164535846773578
 GameObject:
   m_ObjectHideFlags: 0

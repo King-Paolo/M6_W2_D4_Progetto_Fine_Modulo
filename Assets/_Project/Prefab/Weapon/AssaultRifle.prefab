@@ -125,7 +125,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5955068924232483508}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 196cfe1c56f20754aa2ba7e8a52d7cc0, type: 2}
   m_CullingMode: 0
@@ -152,6 +152,7 @@ GameObject:
   - component: {fileID: 3819718089365438310}
   - component: {fileID: 2148865018471354314}
   - component: {fileID: 9052858756501374296}
+  - component: {fileID: 8224981482033425926}
   m_Layer: 6
   m_Name: AssaultRifle
   m_TagString: Untagged
@@ -187,10 +188,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8eca87e456c34f4fbb07069cbbad99e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _fireRate: 0
-  _fireRange: 0
-  _bulletPrefab: {fileID: 4438035436899744863, guid: 2cb5829754754a34da81b2f2807cf08a, type: 3}
+  _fireRate: 0.1
+  _fireRange: 10
+  _bulletIndex: 2
   _sfx: {fileID: 8300000, guid: 7c600bbf237427770996606d57ad7f0a, type: 3}
+  _bulletPool: {fileID: 0}
 --- !u!61 &7414375517385621992
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -249,7 +251,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gunPrefab: {fileID: 560256025576182600}
-  _zombieSpawn: {fileID: 0}
   _sfx: {fileID: 8300000, guid: e5a63eec96ae1ae58adde165b19cf9b7, type: 3}
 --- !u!114 &2148865018471354314
 MonoBehaviour:
@@ -263,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7161faaf653d96440bfbb081784eef58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 8224981482033425926}
   _horizontalSpeedParamName: hSpeed
   _verticalSpeedParamName: vSpeed
   _healthParamName: isDead
@@ -362,3 +364,24 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!95 &8224981482033425926
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7391526280190839114}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 196cfe1c56f20754aa2ba7e8a52d7cc0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

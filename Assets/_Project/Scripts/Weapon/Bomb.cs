@@ -3,7 +3,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] private AudioClip _sfx;
-    [SerializeField] private float _damage;
+    [SerializeField] private int _damage;
 
     private AudioSource _audioSource;
 

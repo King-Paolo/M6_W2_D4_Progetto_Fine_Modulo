@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3970065252666055735}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,9 +43,10 @@ GameObject:
   - component: {fileID: 1758213670018441371}
   - component: {fileID: 3749177039992756426}
   - component: {fileID: 5759202436820817604}
+  - component: {fileID: 4188084004361433877}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -138,6 +139,51 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!61 &4188084004361433877
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3908943479841452085}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.008875556, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.6956522, y: 1.4565217}
+    newSize: {x: 0.6956522, y: 1.4565217}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.46488827, y: 1.4565217}
+  m_EdgeRadius: 0
 --- !u!1 &4626340718455769930
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +198,8 @@ GameObject:
   - component: {fileID: 651874402104839368}
   - component: {fileID: 5244777054341305357}
   - component: {fileID: 2492786592134297583}
-  m_Layer: 0
+  - component: {fileID: 4674931543026805470}
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -201,7 +248,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &2495902269904996962
 MonoBehaviour:
@@ -217,6 +264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _hp: 120
   _maxHp: 120
+  _animParam: {fileID: 5244777054341305357}
 --- !u!114 &651874402104839368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -229,7 +277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f54b2c5b021b0488a8e6086059f958, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 5
+  _speed: 3
   _damage: 10
 --- !u!114 &5244777054341305357
 MonoBehaviour:
@@ -243,11 +291,47 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7161faaf653d96440bfbb081784eef58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _anim: {fileID: 5759202436820817604}
   _horizontalSpeedParamName: hSpeed
   _verticalSpeedParamName: vSpeed
   _healthParamName: isDead
 --- !u!58 &2492786592134297583
 CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4626340718455769930}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.33}
+  serializedVersion: 2
+  m_Radius: 0.41
+--- !u!70 &4674931543026805470
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -278,9 +362,9 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.33}
-  serializedVersion: 2
-  m_Radius: 0.41
+  m_Offset: {x: 0.019526184, y: -0.17396045}
+  m_Size: {x: 0.5461527, y: 1.1136067}
+  m_Direction: 0
 --- !u!1 &7743754403750124750
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5741546291449245492}
   - component: {fileID: 5391213653169538872}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Audio Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}

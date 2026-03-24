@@ -1,23 +1,22 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class LifeController : MonoBehaviour
 {
-    [SerializeField] private float _hp;
-    [SerializeField] private float _maxHp;
+    [SerializeField] private int _hp;
+    [SerializeField] private int _maxHp;
+    [SerializeField] private AnimationParamHandler _animParam;
+    [SerializeField] private UnityEvent<int, int> _onHpChanged;
 
-    private AnimationParamHandler _animParam;
     private bool _isDead;
 
-    public float Hp { get { return _hp; } }
+    //public float Hp { get { return _hp; } }
     public bool IsDead => _isDead;
 
     private void Awake()
     {
         _hp = _maxHp;
-
-        if(_animParam != null)
-        _animParam = GetComponent<AnimationParamHandler>();
     }
 
     private void OnEnable()
@@ -30,7 +29,7 @@ public class LifeController : MonoBehaviour
             _animParam.SetHealthParam(false);
         }
     }
-    private void SetHp(float hp)
+    private void SetHp(int hp)
     {
         _hp = Mathf.Clamp(hp, 0, _maxHp);
 
@@ -43,11 +42,12 @@ public class LifeController : MonoBehaviour
 
         if (CompareTag("Player"))
         {
-            Debug.Log("Hp rimanenti" + _hp);  // da aggiungere UI
+            _onHpChanged.Invoke(_hp, _maxHp);
+            GameManager.Instance.GameOver();
         }
     }
 
-    public void TakeDamage(float damage) => SetHp(_hp - damage);
+    public void TakeDamage(int damage) => SetHp(_hp - damage);
 
     IEnumerator DeathTimer()
     {

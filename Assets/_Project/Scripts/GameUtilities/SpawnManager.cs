@@ -1,14 +1,33 @@
 using System.Collections;
 using UnityEngine;
 
-public class Spawn : MonoBehaviour
+public class SpawnManager : MonoBehaviour
 {
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private WeaponSpawner _weaponSpawner;
 
+    public static SpawnManager Instance;
+
+    private bool _waveStarted;
+    private Coroutine _waveCoroutine;
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
+
+
     public void StartWave()
     {
-        StartCoroutine(SpawnWave());
+        if (_waveCoroutine != null) return;
+
+        _waveCoroutine = StartCoroutine(SpawnWave());
     }
 
     public IEnumerator SpawnWave()

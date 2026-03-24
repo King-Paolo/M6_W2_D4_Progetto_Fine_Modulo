@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [Header("Enemy Spawn Points")]
+    [Header("Enemy SpawnManager Points")]
     [SerializeField] private Transform[] _spawnPoints;
 
     [SerializeField] private EnemyPool _enemyPool;
