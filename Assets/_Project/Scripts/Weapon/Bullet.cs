@@ -10,11 +10,6 @@ public class Bullet : MonoBehaviour
     private float _lifeTimer;
     private float _lifeTime = 2f;
 
-    public void Set(Vector2 direction)
-    {
-        _direction = direction;
-    }
-
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -54,5 +49,10 @@ public class Bullet : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public void Set(Vector2 direction)
+    {
+        _direction = direction;
     }
 }

@@ -8,7 +8,6 @@ public class LifeController : MonoBehaviour
     [SerializeField] private int _maxHp;
     [SerializeField] private AnimationParamHandler _animParam;
     [SerializeField] private UnityEvent<int, int> _onHpChanged;
-    [SerializeField] private ParticleSystem _particleSystem;
 
     private bool _isDead;
 
@@ -65,11 +64,5 @@ public class LifeController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-    }
-
-    public IEnumerator GameOver()
-    {
-        yield return new WaitForSeconds(1);
-        GameManager.Instance.GameOver();
     }
 }

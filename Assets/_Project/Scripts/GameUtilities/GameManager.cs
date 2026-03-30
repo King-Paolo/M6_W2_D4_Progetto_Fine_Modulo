@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _gameOverMenu;
     [SerializeField] private GameObject _gameOverDialogue;
     [SerializeField] private GameObject _pauseMenu;
+    [SerializeField] private GameObject _settingsMenu;
+    [SerializeField] private AudioClip _backgroundMusic;
 
     private bool _isPaused;
     private bool _gameEnded;
@@ -28,7 +30,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        //AudioManager.Instance.PlayMusic(_backgroundMusic);
+        AudioManager.Instance.PlayMusic(_backgroundMusic);
         Time.timeScale = 1f;
     }
 
@@ -88,10 +90,20 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
+    public void ExitGame()
+    {
+        Application.Quit();
+    }
     public void MainMenu()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+        AudioManager.Instance.StopMusic();
+    }
+
+    public void ShowSettingsMenu()
+    {
+        MenuManager.Instance.SettingsMenu(_settingsMenu);
     }
 
     public void DialoguesMenu(GameObject dialogue)

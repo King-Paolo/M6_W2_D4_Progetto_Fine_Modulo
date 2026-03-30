@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -7,20 +6,13 @@ public class Bomb : MonoBehaviour
     [SerializeField] private int _damage;
     [SerializeField] private ParticleSystem _particleSystem;
 
-    private AudioSource _audioSource;
     private bool _canBeActivate = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && _canBeActivate)
         {
-            if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
-
-            if (_audioSource != null)
-            {
-                _audioSource.clip = _sfx;
-                _audioSource.Play();
-            }
+            AudioManager.Instance.PlaySFX(_sfx);
 
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
@@ -35,7 +27,7 @@ public class Bomb : MonoBehaviour
             }
             Instantiate(_particleSystem, transform);
             _canBeActivate = false;
-            GameManager.Instance.TriggerDelayVictory(1.5f);
+            GameManager.Instance.TriggerDelayVictory(3f);
         }
     }
 }

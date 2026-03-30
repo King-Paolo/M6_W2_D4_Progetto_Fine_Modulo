@@ -9,11 +9,13 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private AnimationParamHandler _animParam;
 
-    void Start()
+    void Awake()
     {
+        if (_rb == null)
         _rb = GetComponent<Rigidbody2D>();
+
+        if (_animParam  == null)
         _animParam = GetComponent<AnimationParamHandler>();
-        Debug.Log("Frank, questi zombie sono dappertutto, vai a prendere la pistola vicino alla mia auto, nel parcheggio");
     }
 
     private void Update()

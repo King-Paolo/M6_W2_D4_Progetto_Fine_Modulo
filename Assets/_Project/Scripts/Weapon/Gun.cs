@@ -90,11 +90,7 @@ public class Gun : MonoBehaviour
         bullet.transform.position = transform.position;
         bullet.GetComponent<Bullet>().Set(direction);
 
-        if (_audioSource != null)
-        {
-            _audioSource.clip = _sfx;
-            _audioSource.Play();
-        }
+        AudioManager.Instance.PlaySFX(_sfx);
     }
 
     public void Equip()

@@ -197,8 +197,8 @@ GameObject:
   - component: {fileID: 2495902269904996962}
   - component: {fileID: 651874402104839368}
   - component: {fileID: 5244777054341305357}
-  - component: {fileID: 2492786592134297583}
   - component: {fileID: 4674931543026805470}
+  - component: {fileID: 3911566222250183814}
   m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
@@ -268,7 +268,6 @@ MonoBehaviour:
   _onHpChanged:
     m_PersistentCalls:
       m_Calls: []
-  _particleSystem: {fileID: 3642160410948286680, guid: 171dda363e9efd94ca9bc63e38ca9658, type: 3}
 --- !u!114 &651874402104839368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,6 +282,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 3
   _damage: 10
+  _minGrowlDelay: 3
+  _maxGrowlDelay: 8
 --- !u!114 &5244777054341305357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -299,41 +300,6 @@ MonoBehaviour:
   _horizontalSpeedParamName: hSpeed
   _verticalSpeedParamName: vSpeed
   _healthParamName: isDead
---- !u!58 &2492786592134297583
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4626340718455769930}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.33}
-  serializedVersion: 2
-  m_Radius: 0.41
 --- !u!70 &4674931543026805470
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -369,6 +335,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0.019526184, y: -0.17396045}
   m_Size: {x: 0.5461527, y: 1.1136067}
   m_Direction: 0
+--- !u!114 &3911566222250183814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4626340718455769930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b24328f766f7b6d4d80e5217ffee6d8a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7743754403750124750
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +390,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3e63aa4dc38e8de9b96bbb840b17e2f6, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 0

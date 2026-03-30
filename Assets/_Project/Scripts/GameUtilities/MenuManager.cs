@@ -33,4 +33,9 @@ public class MenuManager : MonoBehaviour
         if (pauseMenu != null)
             pauseMenu.SetActive(state);
     }
+
+    public void SettingsMenu(GameObject settingsMenu)
+    {
+        settingsMenu.SetActive(!settingsMenu.activeSelf);
+    }
 }
