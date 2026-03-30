@@ -8,10 +8,10 @@ public class LifeController : MonoBehaviour
     [SerializeField] private int _maxHp;
     [SerializeField] private AnimationParamHandler _animParam;
     [SerializeField] private UnityEvent<int, int> _onHpChanged;
+    [SerializeField] private ParticleSystem _particleSystem;
 
     private bool _isDead;
 
-    //public float Hp { get { return _hp; } }
     public bool IsDead => _isDead;
 
     private void Awake()
@@ -38,18 +38,22 @@ public class LifeController : MonoBehaviour
             _isDead = true;
             _animParam.SetHealthParam(_hp == 0);
             StartCoroutine(DeathTimer());
+
+            if (CompareTag("Player"))
+            {
+                GameManager.Instance.TriggerDelayGameOver(1);
+            }
         }
 
         if (CompareTag("Player"))
         {
             _onHpChanged.Invoke(_hp, _maxHp);
-            GameManager.Instance.GameOver();
         }
     }
 
     public void TakeDamage(int damage) => SetHp(_hp - damage);
 
-    IEnumerator DeathTimer()
+    public IEnumerator DeathTimer()
     {
         yield return new WaitForSeconds(0.8f);
 
@@ -61,5 +65,11 @@ public class LifeController : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+
+    public IEnumerator GameOver()
+    {
+        yield return new WaitForSeconds(1);
+        GameManager.Instance.GameOver();
     }
 }

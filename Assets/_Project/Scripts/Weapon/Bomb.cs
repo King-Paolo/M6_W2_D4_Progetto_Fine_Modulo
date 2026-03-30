@@ -1,15 +1,18 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
     [SerializeField] private AudioClip _sfx;
     [SerializeField] private int _damage;
+    [SerializeField] private ParticleSystem _particleSystem;
 
     private AudioSource _audioSource;
+    private bool _canBeActivate = true;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && _canBeActivate)
         {
             if (_audioSource == null) _audioSource = GetComponent<AudioSource>();
 
@@ -30,8 +33,9 @@ public class Bomb : MonoBehaviour
                     zombie.TakeDamage(_damage);
                 }
             }
-            Debug.Log("Ottimo lavoro Frank, li abbiamo sterminati!");
-            Destroy(gameObject, _sfx.length);
+            Instantiate(_particleSystem, transform);
+            _canBeActivate = false;
+            GameManager.Instance.TriggerDelayVictory(1.5f);
         }
     }
 }

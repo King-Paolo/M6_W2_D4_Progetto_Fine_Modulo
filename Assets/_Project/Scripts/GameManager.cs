@@ -8,7 +8,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [SerializeField] private GameObject _victoryMenu;
+    [SerializeField] private GameObject _victoryDialogue;
     [SerializeField] private GameObject _gameOverMenu;
+    [SerializeField] private GameObject _gameOverDialogue;
     [SerializeField] private GameObject _pauseMenu;
 
     private bool _isPaused;
@@ -57,16 +59,27 @@ public class GameManager : MonoBehaviour
 
     public void Victory()
     {
-        _gameEnded = true;
+        _gameEnded = true;     
+        MenuManager.Instance.VictoryMenu(_victoryMenu);
+        DialoguesMenu(_victoryDialogue);
         Time.timeScale = 0;
-        MenuManager.Instance.VictoryMenu(_victoryMenu);     
     }
 
+    public void TriggerDelayVictory(float delay)
+    {
+        StartCoroutine(DelayVictory(delay));
+    }
     public void GameOver()
     {
         _gameEnded = true;
-        Time.timeScale = 0;
         MenuManager.Instance.GameOverMenu(_gameOverMenu);
+        DialoguesMenu(_gameOverDialogue);
+        Time.timeScale = 0;
+    }
+
+    public void TriggerDelayGameOver(float delay)
+    {
+        StartCoroutine(DelayGameOver(delay));
     }
 
     public void PlayGame()
@@ -79,5 +92,29 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+    }
+
+    public void DialoguesMenu(GameObject dialogue)
+    {
+        StartCoroutine(StartDialogues(dialogue));
+    }
+
+    public IEnumerator StartDialogues(GameObject dialogue)
+    {
+        dialogue.SetActive(true);
+        yield return new WaitForSeconds(5);
+        dialogue.SetActive(false);
+    }
+
+    public IEnumerator DelayGameOver(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        GameOver();
+    }
+
+    public IEnumerator DelayVictory(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        Victory();
     }
 }

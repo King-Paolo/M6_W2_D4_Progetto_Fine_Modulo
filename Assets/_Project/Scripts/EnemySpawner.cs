@@ -6,31 +6,35 @@ public class EnemySpawner : MonoBehaviour
 {
     [Header("Enemy SpawnManager Points")]
     [SerializeField] private Transform[] _spawnPoints;
-
     [SerializeField] private EnemyPool _enemyPool;
+    [SerializeField] private GameObject[] _dialoguesMenu;
 
+    private void Start()
+    {
+        GameManager.Instance.DialoguesMenu(_dialoguesMenu[0]);
+    }
     public void FirstWave()
     {
-        SpawnEnemy(2);
-
+        SpawnEnemy(3);
+        GameManager.Instance.DialoguesMenu(_dialoguesMenu[1]);
         Debug.Log("ATTENTO! STANNO ARRIVANDO!");
     }
     public void SecondWave()
     {
-        SpawnEnemy(5);
-
+        SpawnEnemy(7);
+        GameManager.Instance.DialoguesMenu(_dialoguesMenu[2]);
         Debug.Log("Ne arrivano altri, resisti! Dovrebbe esserci uno Shotgun nel parco. Potrebbe tornarti utile!");
     }
     public void ThirdWave()
     {
-        SpawnEnemy(17);
-
+        SpawnEnemy(20);
+        GameManager.Instance.DialoguesMenu(_dialoguesMenu[3]);
         Debug.Log("Ma quanti sono!? ATTENTO FRANK! Prendi il Fucile, nel parcheggio e falli fuori!");
     }
     public void LastWave()
     {
-        SpawnEnemy(30);
-
+        SpawnEnemy(50);
+        GameManager.Instance.DialoguesMenu(_dialoguesMenu[4]);
         Debug.Log("CE NE SONO TROPPI!! VIENI IN FONDO ALLA STRADA, A DESTRA, SGANCEREMO UNA BOMBA!!");
     }
 

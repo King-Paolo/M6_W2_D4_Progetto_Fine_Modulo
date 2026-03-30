@@ -265,6 +265,10 @@ MonoBehaviour:
   _hp: 120
   _maxHp: 120
   _animParam: {fileID: 5244777054341305357}
+  _onHpChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  _particleSystem: {fileID: 3642160410948286680, guid: 171dda363e9efd94ca9bc63e38ca9658, type: 3}
 --- !u!114 &651874402104839368
 MonoBehaviour:
   m_ObjectHideFlags: 0

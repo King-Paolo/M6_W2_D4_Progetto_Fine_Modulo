@@ -3,12 +3,11 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public static SpawnManager Instance;
+
     [SerializeField] private EnemySpawner _enemySpawner;
     [SerializeField] private WeaponSpawner _weaponSpawner;
 
-    public static SpawnManager Instance;
-
-    private bool _waveStarted;
     private Coroutine _waveCoroutine;
 
     private void Awake()
@@ -21,7 +20,6 @@ public class SpawnManager : MonoBehaviour
 
         Instance = this;
     }
-
 
     public void StartWave()
     {

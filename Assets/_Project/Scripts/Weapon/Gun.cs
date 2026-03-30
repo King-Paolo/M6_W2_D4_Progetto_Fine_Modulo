@@ -7,19 +7,18 @@ public class Gun : MonoBehaviour
     [SerializeField] private int _bulletIndex;
     [SerializeField] private AudioClip _sfx;
     [SerializeField] private BulletPool _bulletPool;
+    [SerializeField] private ParticleSystem _particleSystem;
 
     private float _lastTimeShot;
     private bool _isEquipped;
-    private AnimationParamHandler _animParam;
     private AudioSource _audioSource;
     private Transform _player;
+    private SpriteRenderer _sr;
 
     public bool IsEquipped => _isEquipped;
 
     private void Awake()
     {
-        _animParam = GetComponent<AnimationParamHandler>();
-
         if (_audioSource == null)
         {
             _audioSource = GetComponent<AudioSource>();
@@ -29,6 +28,11 @@ public class Gun : MonoBehaviour
         {
             _bulletPool = FindObjectOfType<BulletPool>();
         }
+
+        if (_sr == null)
+        {
+            _sr = GetComponentInChildren<SpriteRenderer>();
+        }
     }
 
     private void Update()
@@ -37,22 +41,31 @@ public class Gun : MonoBehaviour
         {
             transform.position = _player.transform.position;
 
-            if (Time.time - _lastTimeShot > _fireRate)
+            GameObject target = FindNearestEnemy();
+
+            if (target != null)
             {
-                _lastTimeShot = Time.time;
-                Shoot(FindNearestEnemy());
+                float directionX = target.transform.position.x - transform.position.x;
+                _sr.flipX = (directionX < 0);
+
+                if (Time.time - _lastTimeShot > _fireRate)
+                {
+                    _lastTimeShot = Time.time;
+                    Shoot(target);
+                    _particleSystem.Play();
+                }
             }
         }
     }
 
     public GameObject FindNearestEnemy()
     {
-        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy"); // creo un array per cercare tutti i gameObject col tag "enemy" nella scena
-        Vector2 player = new Vector2(transform.position.x, transform.position.y); // posizione di partenza (quella del player) per calcolare la distanza dal nemico
+        GameObject[] enemys = GameObject.FindGameObjectsWithTag("Enemy");
+        Vector2 player = new Vector2(transform.position.x, transform.position.y);
 
         float distance;
         float minDistance = _fireRange;
-        GameObject nearestEnemy = null; // faccio un controllo per essere sicuro che il calcolo parta da 0
+        GameObject nearestEnemy = null;
 
         foreach (GameObject enemy in enemys)
         {
@@ -82,8 +95,6 @@ public class Gun : MonoBehaviour
             _audioSource.clip = _sfx;
             _audioSource.Play();
         }
-
-        _animParam.SetHorizontalSpeedParam(direction.x);
     }
 
     public void Equip()
